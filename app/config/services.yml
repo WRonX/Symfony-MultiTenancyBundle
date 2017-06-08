@@ -1,0 +1,10 @@
+parameters:
+    console_command_event_listener.class: AppBundle\EventListener\ConsoleCommandEventListener
+
+services:
+    listeners.console_command_event_listener:
+        class: "%console_command_event_listener.class%"
+        tags:
+            - { name: kernel.event_listener, event: console.command }
+        calls:
+          - [ setContainer,[ '@service_container' ] ]
