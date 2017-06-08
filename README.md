@@ -52,6 +52,7 @@ As `ConnectionWrapper` uses `REGEXP`, **host field** can look like the following
 * `^((.*\.)*client02\.yourapplicationdomain\.com)|(clientsowndomain\.com)$`
 
 As you can see from this example, you can handle multime client domains, and subdomains can be ignored. Also, `SELECT` query is ordered by host field's length (descending), so every request to non-existing host (tenant) will be handled by connection data defined in record with `.*` host, which can be useful for creating demo environment.
+Many thanks to [swiniak](https://github.com/swiniak/) for coming up with `REGEXP` idea.
 
 ##### 2. Using included code and configuration:
 
