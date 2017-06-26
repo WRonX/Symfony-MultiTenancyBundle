@@ -25,6 +25,12 @@ class ConnectionWrapper extends Connection
     const COLUMN_TENANT_PASS = "dbPass";
     const COLUMN_TENANT_USER = "dbUser";
     const TENANT_TABLE_NAME = "tenants";
+
+    const COMMANDS_NOT_INCLUDED = [
+        'cache:clear',
+        'assets:install',
+        'assetic:dump'
+    ];
     
     /**
      * @var string
@@ -52,6 +58,10 @@ class ConnectionWrapper extends Connection
         {
             // this is really ugly, feel free to suggest better solution
             $arguments = $_SERVER['argv'];
+
+            if(in_array($arguments[1], self::COMMANDS_NOT_INCLUDED))
+                return $this->_conn;
+
             $tenantArgumentTag = "--tenant=";
             $tenantArgumentPattern = "$tenantArgumentTag*";
             $tenantArguments = array_values(array_filter($arguments, function($entry) use ($tenantArgumentPattern)
