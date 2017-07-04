@@ -165,7 +165,7 @@ class ConnectionWrapper extends Connection
     
     private function getConnectionByTenantHost($hostName)
     {
-        $query = "SELECT * FROM " . $this::TENANT_TABLE_NAME . " WHERE ? REGEXP host AND active = 1 ORDER BY CHAR_LENGTH(host) DESC";
+        $query = "SELECT * FROM " . $this::TENANT_TABLE_NAME . " WHERE ? REGEXP host AND active = 1 ORDER BY CHAR_LENGTH(host) DESC LIMIT 1";
         
         return $this->getConnectionByQuery($query, $hostName);
     }
