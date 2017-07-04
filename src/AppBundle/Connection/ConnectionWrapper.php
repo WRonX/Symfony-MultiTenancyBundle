@@ -58,9 +58,21 @@ class ConnectionWrapper extends Connection
         {
             // this is really ugly, feel free to suggest better solution
             $arguments = $_SERVER['argv'];
-
+    
             if(in_array($arguments[1], self::COMMANDS_NOT_INCLUDED))
-                return $this->_conn;
+            {
+                try
+                {
+                    $this->_params = parent::getParams();
+                    $this->_conn = $this->_driver->connect($this->_params, $this->_params['user'], $this->_params['password'], $this->_params['driverOptions'] ?? array());
+            
+                    return true;
+                }
+                catch(\Exception $e)
+                {
+                    die($e->getMessage());
+                }
+            }
 
             $tenantArgumentTag = "--tenant=";
             $tenantArgumentPattern = "$tenantArgumentTag*";
