@@ -29,6 +29,7 @@ class ConnectionWrapper extends Connection
         'assets:install',
         'assetic:dump',
         'tenants:list',
+        'tenants:execute',
     ];
     const TENANT_TABLE_NAME = "tenants";
     /**
