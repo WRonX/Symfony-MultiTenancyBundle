@@ -24,14 +24,13 @@ class ConnectionWrapper extends Connection
     const COLUMN_TENANT_NAME = "name";
     const COLUMN_TENANT_PASS = "dbPass";
     const COLUMN_TENANT_USER = "dbUser";
-    const TENANT_TABLE_NAME = "tenants";
-
     const COMMANDS_NOT_INCLUDED = [
         'cache:clear',
         'assets:install',
-        'assetic:dump'
+        'assetic:dump',
+        'tenants:list',
     ];
-    
+    const TENANT_TABLE_NAME = "tenants";
     /**
      * @var string
      */
