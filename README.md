@@ -62,6 +62,13 @@ This should be self-explanatory.
 
 Just remember to add tenant name for every command, using `--tenant=TENANTNAME` (this is the *name* field from `tenants` table).
 
+##### 4. New console commands
+
+Two new console commands were added:
+
+* `tenants:list` just shows available tenant names (and some additional data)
+* `tenants:execute "command to execute"` executes given (quoted!) command on all tenants. Example: `php app/console tenants:execute "doctrine:schema:update --dump-sql"`
+
 #### Summary
 
 Oh, come on, I spent enough time writing readme already...
