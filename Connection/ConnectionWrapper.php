@@ -10,7 +10,7 @@
  * Inspired by zulus' answer: https://stackoverflow.com/a/9291896
  */
 
-namespace AppBundle\Connection;
+namespace WRonX\MultiTenancyBundle\Connection;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver;
