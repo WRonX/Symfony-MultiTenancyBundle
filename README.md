@@ -22,6 +22,16 @@ I couldn't think of better solution, so every tenant has a name and host, by whi
 
 #### Installation and Configuration:
 
+First, in your `config.yml` set `wrapper_class` for doctrine:
+
+```
+# app/config/config.yml
+
+doctrine:
+    dbal:
+        wrapper_class: "%connection_wrapper%"
+```
+
 If you want to stay in single-tenant mode, just change `connection_wrapper` to `null` in `parameters.yml`. Other parameters should point to application's database, as usual.
 In order to use multi-tenant mode, follow the steps below:
 
