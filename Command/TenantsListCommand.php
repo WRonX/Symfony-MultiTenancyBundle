@@ -1,8 +1,6 @@
 <?php
 /**
- * Multitenancy Tenants List Command
- *
- * Copyright © 2017 WRonX <wronx[at]wronx.net>
+ * Copyright © 2017 WRonX <wronx[at]wronx.net> https://github.com/WRonX
  * This work is free. You can redistribute it and/or modify it under the
  * terms of the Do What The Fuck You Want To Public License, Version 2,
  * as published by Sam Hocevar. See http://www.wtfpl.net/ for more details.
@@ -25,6 +23,9 @@ class TenantsListCommand extends ContainerAwareCommand
     
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        if(!$this->getContainer()->getParameter('wronx_multitenancy.enabled'))
+            throw new \RuntimeException("Multitenancy disabled. Enable multitenancy in config (wronx_multitenancy.enabled parameter).");
+    
         $tenantQuery = "SELECT name, host FROM tenants";
         
         /**

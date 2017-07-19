@@ -1,5 +1,5 @@
 parameters:
-    console_command_event_listener.class: AppBundle\EventListener\ConsoleCommandEventListener
+    console_command_event_listener.class: WRonX\MultiTenancyBundle\EventListener\ConsoleCommandEventListener
 
 services:
     listeners.console_command_event_listener:

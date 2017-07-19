@@ -1,6 +1,0 @@
-# app/config/parameters.yml
-
-parameters:
-# (...)
-    connection_wrapper: "AppBundle\\Connection\\ConnectionWrapper"
-#    connection_wrapper: null # use null for single-tenancy instance

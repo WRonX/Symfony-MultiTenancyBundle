@@ -1,0 +1,33 @@
+{
+  "name": "wronx/multitenancy-bundle",
+  "description": "Poor Man's MultiTenancy for Symfony",
+  "type": "symfony-bundle",
+  "keywords": [
+    "tenant",
+    "multitenant",
+    "multitenancy",
+    "bundle",
+    "symfony"
+  ],
+  "authors": [
+    {
+      "name": "Marcin \"WRonX\" Wronka",
+      "email": "wronx@wronx.net",
+      "homepage": "http://wronx.net",
+      "role": "Developer"
+    }
+  ],
+  "license": [
+    "WTFPL"
+  ],
+  "require": {
+    "symfony/symfony": "~2.8|~3.0",
+    "doctrine/dbal": "~2.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "WRonX\\MultiTenancyBundle": ""
+    }
+  },
+  "target-dir": "WRonX/MultiTenancyBundle"
+}

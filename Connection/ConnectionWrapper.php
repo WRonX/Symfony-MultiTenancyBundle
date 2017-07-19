@@ -1,13 +1,10 @@
 <?php
 /**
- * Multitenancy Connection Wrapper
- *
- * Copyright © 2017 WRonX <wronx[at]wronx.net>
+ * Copyright © 2017 WRonX <wronx[at]wronx.net> https://github.com/WRonX
  * This work is free. You can redistribute it and/or modify it under the
  * terms of the Do What The Fuck You Want To Public License, Version 2,
  * as published by Sam Hocevar. See http://www.wtfpl.net/ for more details.
- * 
- * Inspired by zulus' answer: https://stackoverflow.com/a/9291896
+ * ConnectionWrapper solution inspired by zulus' answer: https://stackoverflow.com/a/9291896
  */
 
 namespace WRonX\MultiTenancyBundle\Connection;
@@ -65,7 +62,7 @@ class ConnectionWrapper extends Connection
                 {
                     $this->_params = parent::getParams();
                     $this->_conn = $this->_driver->connect($this->_params, $this->_params['user'], $this->_params['password'], $this->_params['driverOptions'] ?? array());
-            
+    
                     return true;
                 }
                 catch(\Exception $e)
@@ -183,10 +180,8 @@ class ConnectionWrapper extends Connection
     public function getSchemaManager()
     {
         if(!$this->_schemaManager)
-        {
             $this->_schemaManager = $this->_driver->getSchemaManager($this);
-        }
-        
+    
         return $this->_schemaManager;
     }
 }
