@@ -21,6 +21,29 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 class WRonXMultiTenancyExtension extends Extension implements PrependExtensionInterface
 {
     /**
+     * {@inheritdoc}
+     */
+    public function load(array $configs, ContainerBuilder $container)
+    {
+        $configuration = new Configuration();
+        $config = $this->processConfiguration($configuration, $configs);
+
+        if(!is_array($config) || !array_key_exists('enabled', $config))
+        {
+            $container->setParameter('wronx_multitenancy.enabled', false);
+            return;
+        }
+    
+        $container->setParameter('wronx_multitenancy.enabled', $config['enabled']);
+    
+        if($config['enabled'] === true)
+        {
+            $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+            $loader->load('services.yml');
+        }
+    }
+    
+    /**
      * Allow an extension to prepend the extension configurations.
      *
      * @param ContainerBuilder $container
@@ -29,7 +52,10 @@ class WRonXMultiTenancyExtension extends Extension implements PrependExtensionIn
     {
         $configs = $container->getExtensionConfig($this->getAlias());
         $config = $this->processConfiguration(new Configuration(), $configs);
-        
+    
+        if(!is_array($config) || !array_key_exists('enabled', $config))
+            return;
+
         // If enabled, injecting wrapper class into Doctrine config tree
         if($config['enabled'] === true)
             $container->prependExtensionConfig('doctrine', ['dbal' => ['wrapper_class' => "WRonX\\MultiTenancyBundle\\Connection\\ConnectionWrapper"]]);
@@ -38,21 +64,5 @@ class WRonXMultiTenancyExtension extends Extension implements PrependExtensionIn
     public function getAlias()
     {
         return "wronx_multitenancy";
-    }
-    
-    /**
-     * {@inheritdoc}
-     */
-    public function load(array $configs, ContainerBuilder $container)
-    {
-        $configuration = new Configuration();
-        $config = $this->processConfiguration($configuration, $configs);
-        $container->setParameter('wronx_multitenancy.enabled', $config['enabled']);
-        
-        if($config['enabled'])
-        {
-            $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-            $loader->load('services.yml');
-        }
     }
 }
