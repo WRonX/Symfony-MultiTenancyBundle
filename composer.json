@@ -25,8 +25,8 @@
     "doctrine/dbal": "~2.3"
   },
   "autoload": {
-    "psr-4": {
-      "WRonX\\MultiTenancyBundle": ""
+    "psr-0": {
+      "WRonX\\MultiTenancyBundle\\": ""
     }
   },
   "target-dir": "WRonX/MultiTenancyBundle"
