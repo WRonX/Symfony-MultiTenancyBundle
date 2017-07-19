@@ -19,7 +19,7 @@ class TenantsListCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('tenant:list')
+            ->setName('tenants:list')
             ->setDescription('Lists available tenant names');
     }
     
