@@ -1,11 +1,11 @@
-#### Poor Man's Symfony 2.8x Multitenancy
+#### Poor Man's Symfony Multitenancy Bundle
 
-This piece of poorly written code may help you with creating multi-tenant applications in Symfony 2.8x. Or may not. I don't know, I'm a plumber, not a fortune-teller.
+This piece of poorly written code may help you with creating multi-tenant applications in Symfony. Or may not. I don't know, I'm a plumber, not a fortune-teller.
 
 
 #### License:
 
-> Copyright © 2016 github.com/WRonX
+> Copyright © 2017 github.com/WRonX
 This work is free. You can redistribute it and/or modify it under the terms of the Do What The Fuck You Want To Public License, Version 2, as published by Sam Hocevar. See http://www.wtfpl.net/ for more details.
 
 
@@ -22,20 +22,39 @@ I couldn't think of better solution, so every tenant has a name and host, by whi
 
 #### Installation and Configuration:
 
-First, in your `config.yml` set `wrapper_class` for doctrine:
+##### 1. Installing the bundle
+
+First, install the bundle with `composer`:
+
+```
+composer require wronx/multitenancy-bundle
+```
+
+Then add the bundle to `AppKernel`:
+
+```
+// app/AppKernel.php
+
+$bundles = array( /* ... */
+            new WRonX\MultiTenancyBundle\WRonXMultiTenancyBundle(),
+```
+
+And add the following do your `config.yml`:
 
 ```
 # app/config/config.yml
 
-doctrine:
-    dbal:
-        wrapper_class: "%connection_wrapper%"
+wronx_multitenancy:
+    enabled: true
 ```
 
-If you want to stay in single-tenant mode, just change `connection_wrapper` to `null` in `parameters.yml`. Other parameters should point to application's database, as usual.
-In order to use multi-tenant mode, follow the steps below:
+If you skip the last step, multitenancy will be disabled by default.
 
-##### 1. Preparing Tenant Manager database:
+> **NOTE:** With disabled multitenancy, your application uses the main (described in `parameters.yml`) database in normal way. 
+
+The following steps are assuming multitenancy is enabled.
+
+##### 2. Prepare Tenant Manager database:
 
 First, create database, which will serve as Tenant Manager. That means connection details will be stored there. Passwords will be stored in plaintext, just like DB password in `parameters.yml`. The `parameters.yml` connection details should point to Tenant Manager database.
 Now, Tenant Manager database should contain `tenants` table with connection details for every tenant:
@@ -78,6 +97,12 @@ Two new console commands were added:
 
 * `tenants:list` just shows available tenant names (and some additional data)
 * `tenants:execute "command to execute"` executes given (quoted!) command on all tenants. Example: `php app/console tenants:execute "doctrine:schema:update --dump-sql"`
+
+#### Changes coming soon
+
+* adding console commands to automatically create tenants table and manage tenants
+* changing ignored commands list into commands whitelist
+
 
 #### Summary
 
